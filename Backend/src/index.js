@@ -3,15 +3,36 @@
 
 import dotenv from "dotenv";  // go to package.json to check experimental features
 import connectDB from "./db/index.js";
+import app from "./app.js";
 
 dotenv.config({
     path: "./env"
 });
 
-connectDB();
+connectDB()
+    // .then(
+    //     () => {
+    //         app.on("error", err => {    // on function is use to listen request response and error events.
+    //             console.log("Error: ", err);
+    //             throw err;
+    //         })
+    //     }
+    // )
+    .then(
+        () => {
+            app.listen(process.env.PORT || 8000, () => {
+                console.log(`Server is running on port : ${process.env.PORT}`)
+            }
+            )
+        })
+    .catch(
+        (err) => {
+            console.log("Error: " + err)
+        }
+    )
 
 
-
+// -----------------------------------------------------------------------------------------------------
 
 /*
 First Approch to connect to the database
